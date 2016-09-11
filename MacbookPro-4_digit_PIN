@@ -1,0 +1,51 @@
+const int ledPin = 6;
+int counter = 0;
+int maxpin = 9999;
+int fakecounter = counter;
+char pin[]="xxxx";
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  delay(10000); //Delay to allow teensy to be recognized by macbook
+  digitalWrite(ledPin, LOW);
+}
+
+void loop() {
+  Keyboard.set_modifier(0);
+  if (counter <= maxpin){
+    digitalWrite(ledPin, HIGH);
+    sprintf(pin, "%04d", fakecounter);
+    Keyboard.press(pin[0]);
+    delay(450);
+    Keyboard.release(pin[0]);
+    delay(420);
+    Keyboard.press(pin[1]);
+    delay(398);
+    Keyboard.release(pin[1]);
+    delay(510);
+    Keyboard.press(pin[2]);
+    delay(421);
+    Keyboard.release(pin[2]);
+    delay(423);
+    Keyboard.press(pin[3]);
+    delay(430);
+    Keyboard.release(pin[3]);
+    delay(525);
+    Keyboard.press(KEY_ENTER);
+    delay(405);
+    Keyboard.release(KEY_ENTER);
+    digitalWrite(ledPin, LOW);
+    delay(11000);
+    ++counter;
+    fakecounter = counter; 
+  }
+  if (counter > maxpin){
+    for (int blinkies = 0; blinkies < 8; blinkies++) {
+      digitalWrite(ledPin, HIGH);
+      delay(20);
+      digitalWrite(ledPin, LOW);
+      delay(200);
+    }
+  }
+  
+}
